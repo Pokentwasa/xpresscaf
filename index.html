@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en-ZA">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>XPRESSO Café — Everything R10 | Affordable Coffee Shops in Cape Town</title>
+<meta name="description" content="XPRESSO Café is South Africa's first R10 take-away coffee franchise — every item on the menu is R10. Coffee, pastries, sandwiches and treats across Cape Town and the Western Cape.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://xpressocafe.co.za/">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="XPRESSO Café">
+<meta property="og:title" content="XPRESSO Café — Everything R10">
+<meta property="og:description" content="South Africa's first R10 take-away coffee franchise. Coffee, pastries, sandwiches and treats — every item R10.">
+<meta property="og:url" content="https://xpressocafe.co.za/">
+<meta property="og:locale" content="en_ZA">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="XPRESSO Café — Everything R10">
+<meta name="twitter:description" content="South Africa's first R10 take-away coffee franchise. Every item on the menu, R10.">
+<meta name="theme-color" content="#140C08">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Organization",
+  "name":"XPRESSO Café",
+  "url":"https://xpressocafe.co.za/",
+  "email":"info@xpressocafe.co.za",
+  "description":"South Africa's first R10 take-away coffee shop franchise. Every item on the menu is R10.",
+  "areaServed":{"@type":"State","name":"Western Cape, South Africa"}
+}
+</script>
+</head>
+<body>
+
+<div class="grain" aria-hidden="true"></div>
+
+<!-- PRELOADER -->
+<div class="preloader" id="preloader" role="status" aria-live="polite" aria-label="Loading Xpresso">
+  <canvas class="pre-canvas" id="preCanvas" aria-hidden="true"></canvas>
+  <div class="pre-word" aria-hidden="true">
+    <span>X</span><span>P</span><span>R</span><span>E</span><span>S</span><span>S</span><span>O</span>
+  </div>
+  <div class="pre-bar"><i id="preBar"></i></div>
+  <div class="pre-pct" id="prePct">0%</div>
+</div>
+
+<!-- CURSOR -->
+<div class="cursor" id="cursor" aria-hidden="true"></div>
+<div class="cursor-label" id="cursorLabel" aria-hidden="true"></div>
+
+<!-- 3D LAYER -->
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+<!-- NAV -->
+<header class="nav" id="nav">
+  <a href="#top" class="nav-logo" aria-label="Xpresso Café home">
+    <span class="dot" aria-hidden="true"></span> XPRESSO
+  </a>
+  <nav class="nav-links" aria-label="Main">
+    <a href="#menu">Menu</a>
+    <a href="#locations">Locations</a>
+    <a href="#story">About</a>
+    <a href="#franchise">Franchise</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <a href="#locations" class="nav-cta" data-cursor="explore">Find a Xpresso</a>
+  <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+    <i></i><i></i><i></i>
+  </button>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#menu">Menu</a>
+  <a href="#locations">Locations</a>
+  <a href="#story">About</a>
+  <a href="#events">Events</a>
+  <a href="#franchise">Franchise</a>
+  <a href="#contact">Contact</a>
+  <p class="mm-foot">info@xpressocafe.co.za</p>
+</div>
+
+<main id="top">
+
+  <!-- 01 HERO -->
+  <section class="hero" data-env="espresso">
+    <div class="hero-inner">
+      <div class="hero-top">
+        <span class="eyebrow">South Africa · Since the first R10 cup</span>
+        <span class="rule" aria-hidden="true"></span>
+      </div>
+      <h1 class="hero-title display d-xl">
+        <span class="mask"><span class="l1">Coffee</span></span>
+        <span class="mask"><span class="l2">for</span></span>
+        <span class="mask"><span class="l3">everyone.</span></span>
+      </h1>
+      <div class="hero-sub">
+        <p>South Africa's first take-away café where <strong>every single item</strong> on the menu costs the same. No catch. No small print.</p>
+        <div class="hero-ctas">
+          <a href="#menu" class="btn btn-solid" data-cursor="view">See the menu <span class="ar" aria-hidden="true">→</span></a>
+          <a href="#locations" class="btn btn-ghost" data-cursor="explore">Find a store</a>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-cue" aria-hidden="true">
+      <span class="line"></span>
+      Scroll to brew
+    </div>
+  </section>
+
+  <!-- 02 MANIFESTO -->
+  <section class="sec manifesto" id="story" data-env="bean">
+    <div class="wrap">
+      <p class="eyebrow" data-reveal>Why we started</p>
+      <h2 class="display d-lg" style="margin-top:18px">
+        <span class="mask"><span>Good coffee</span></span>
+        <span class="mask"><span>shouldn't cost</span></span>
+        <span class="mask"><span class="hl">the earth.</span></span>
+      </h2>
+      <div class="manifesto-reveal">
+        <p class="big" data-reveal>We wanted the coffee shop experience to belong to everyone — not just whoever had the budget for it.</p>
+        <p data-reveal>XPRESSO Café is a trendy, upmarket take-away café offering all South Africans the chance to taste the coffee shop experience at the best price possible. Flavourful coffee, delicious pastries, appetising sandwiches and decadent treats — any time of the day.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 PRICE MOMENT -->
+  <section class="price" id="price" data-env="crema">
+    <div class="price-stage">
+      <div class="price-huge" id="priceHuge">R10</div>
+      <div class="price-word" id="priceWord">Everything.</div>
+      <div class="price-orbit" id="priceOrbit">
+        <span>Coffee</span><span>Pastries</span><span>Sandwiches</span>
+        <span>Sweet treats</span><span>Cold drinks</span><span>Tea</span>
+      </div>
+      <p class="price-note">Every item on the menu. One price. Items may vary depending on location.</p>
+    </div>
+  </section>
+
+  <!-- 04 MENU -->
+  <section class="sec" id="menu" data-env="paper">
+    <div class="wrap">
+      <div class="menu-head">
+        <div>
+          <p class="eyebrow" data-reveal>The menu</p>
+          <h2 class="display d-md" style="margin-top:14px">
+            <span class="mask"><span>One price.</span></span>
+            <span class="mask"><span>Whole menu.</span></span>
+          </h2>
+        </div>
+        <div class="menu-tabs" role="tablist" aria-label="Menu categories">
+          <button class="menu-tab on" role="tab" aria-selected="true" data-cat="all">All</button>
+          <button class="menu-tab" role="tab" aria-selected="false" data-cat="coffee">Coffee</button>
+          <button class="menu-tab" role="tab" aria-selected="false" data-cat="baked">Baked</button>
+          <button class="menu-tab" role="tab" aria-selected="false" data-cat="savoury">Savoury</button>
+          <button class="menu-tab" role="tab" aria-selected="false" data-cat="sweet">Sweet</button>
+          <button class="menu-tab" role="tab" aria-selected="false" data-cat="cold">Cold</button>
+        </div>
+      </div>
+      <div class="menu-list" id="menuList"></div>
+      <p class="menu-vary">Items may vary depending on location. Categories reflect the current Xpresso range — individual product lists are set per store.</p>
+    </div>
+  </section>
+
+  <!-- 05 LOCATIONS -->
+  <section class="sec loc" id="locations" data-env="milk">
+    <div class="wrap">
+      <div class="loc-head">
+        <div>
+          <p class="eyebrow" data-reveal>Find us</p>
+          <h2 class="display d-md" style="margin-top:14px">
+            <span class="mask"><span>Find your</span></span>
+            <span class="mask"><span>Xpresso.</span></span>
+          </h2>
+        </div>
+        <div class="loc-controls">
+          <label class="loc-search">
+            <span aria-hidden="true">⌕</span>
+            <input type="search" id="locSearch" placeholder="Search suburb, mall or street…" aria-label="Search Xpresso locations">
+          </label>
+        </div>
+      </div>
+      <div class="loc-grid" id="locGrid"></div>
+      <div class="loc-new">
+        <p>Got a great new location for us? <b>We're popping up everywhere fast.</b></p>
+        <a href="mailto:info@xpressocafe.co.za?subject=New%20location%20suggestion" class="loc-btn solid" data-cursor="mail">Suggest a spot</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 EVENTS -->
+  <section class="sec" id="events" data-env="bean">
+    <div class="wrap">
+      <p class="eyebrow" data-reveal>Events</p>
+      <h2 class="display d-lg" style="margin-top:16px">
+        <span class="mask"><span>Got a party?</span></span>
+      </h2>
+      <div class="ev-grid">
+        <div class="ev-card" data-cursor="book"><span class="glyph" aria-hidden="true">◼</span><div><h3>Office</h3><p>Team mornings, launches, long Fridays.</p></div></div>
+        <div class="ev-card" data-cursor="book"><span class="glyph" aria-hidden="true">✦</span><div><h3>Birthday</h3><p>Book the venue, bring the people.</p></div></div>
+        <div class="ev-card" data-cursor="book"><span class="glyph" aria-hidden="true">◐</span><div><h3>Baby shower</h3><p>Coffee, treats and a room of your own.</p></div></div>
+        <div class="ev-card" data-cursor="book"><span class="glyph" aria-hidden="true">✺</span><div><h3>Celebration</h3><p>Whatever the reason to gather.</p></div></div>
+      </div>
+      <div class="ev-note">
+        <div><span class="k">Venue hire</span> <span class="v"><b>R500</b> for 2 hours</span></div>
+        <div><span class="k">Please note</span> <span class="v">No individual table bookings — the form books the entire venue.</span></div>
+        <a href="mailto:info@xpressocafe.co.za?subject=Event%20booking%20enquiry" class="btn btn-volt" data-cursor="book">Plan your event <span class="ar" aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 VOUCHERS + FRANCHISE -->
+  <section class="sec" id="franchise" data-env="espresso" style="padding-left:0;padding-right:0">
+    <div class="split">
+      <div>
+        <p class="eyebrow">Vouchers</p>
+        <h3>Send some coffee.</h3>
+        <p>Buy a voucher for someone who needs it. Our customers have been doing it since day one — it's one of the things we're proudest of.</p>
+        <a href="mailto:info@xpressocafe.co.za?subject=Voucher%20enquiry" class="btn btn-ghost" data-cursor="mail">Get a voucher <span class="ar" aria-hidden="true">→</span></a>
+      </div>
+      <div>
+        <p class="eyebrow">Franchise</p>
+        <h3>Build the next Xpresso.</h3>
+        <p>A turnkey operation. Join the XPRESSO family and own your own shop.</p>
+        <ul>
+          <li>Shop fittings</li>
+          <li>Shop equipment — from your coffee machine to your baking pans</li>
+          <li>Initial franchise fee</li>
+          <li>Staff training</li>
+        </ul>
+        <p style="font-size:13px;color:var(--pale-dim)">Does not include start-up stock. Terms and conditions apply.</p>
+        <a href="mailto:franchise@xpressocafe.co.za?subject=Franchise%20application" class="btn btn-volt" data-cursor="mail">Explore franchising <span class="ar" aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 VOICES -->
+  <section class="sec voices" data-env="paper">
+    <div class="wrap">
+      <p class="eyebrow" data-reveal>What people say</p>
+      <h2 class="display d-md" style="margin-top:14px;color:var(--ink)">
+        <span class="mask"><span>Xpresso lovers.</span></span>
+      </h2>
+    </div>
+    <div style="margin-top:40px">
+      <div class="voice-track" id="voiceTrack"></div>
+    </div>
+    <div class="wrap">
+      <div class="press-row">
+        <span>Entrepreneur Magazine</span><span>Food24</span><span>TravelStart</span>
+        <span>iloveza</span><span>Mess &amp; Mojitos</span><span>Zomato</span>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer" id="contact">
+  <div class="wrap">
+    <p class="footer-big">See you soon.</p>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <a href="#menu">Menu</a>
+        <a href="#locations">Locations</a>
+        <a href="#events">Events</a>
+        <a href="#franchise">Franchise</a>
+      </div>
+      <div class="footer-col">
+        <h4>Work with us</h4>
+        <a href="mailto:work@xpressocafe.co.za">Careers — work@xpressocafe.co.za</a>
+        <a href="mailto:franchise@xpressocafe.co.za">Franchise — franchise@xpressocafe.co.za</a>
+        <a href="mailto:info@xpressocafe.co.za?subject=Supplier%20enquiry">Become a supplier</a>
+      </div>
+      <div class="footer-col">
+        <h4>Head office</h4>
+        <p>16 Wellington Road<br>Basol Building, Durbanville</p>
+        <a href="tel:+27219754209">021 975 4209</a>
+        <a href="mailto:info@xpressocafe.co.za">info@xpressocafe.co.za</a>
+      </div>
+      <div class="footer-col">
+        <h4>Hours vary</h4>
+        <p>Each store sets its own trading hours — check your branch above.</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="yr"></span> XPRESSO Café. Everything R10.</span>
+      <span>Proudly South African</span>
+    </div>
+  </div>
+</footer>
+
+<div class="menu-float" id="menuFloat" aria-hidden="true"><div class="ph"><span class="glyph"></span><span class="lb"></span></div></div>
+
+<!-- Self-hosted so the experience never depends on a third-party CDN
+     being reachable. Also removes a render-blocking external round-trip. -->
+<script src="vendor/gsap.min.js" defer></script>
+<script src="vendor/ScrollTrigger.min.js" defer></script>
+<script src="data.js" defer></script>
+<script type="importmap">
+{ "imports": { "three": "./vendor/three.module.min.js" } }
+</script>
+<script type="module" src="app.js"></script>
+</body>
+</html>
