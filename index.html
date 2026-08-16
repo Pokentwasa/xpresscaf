@@ -3,25 +3,38 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>XPRESSO Café — Everything R10 | Affordable Coffee Shops in Cape Town</title>
-<meta name="description" content="XPRESSO Café is South Africa's first R10 take-away coffee franchise — every item on the menu is R10. Coffee, pastries, sandwiches and treats across Cape Town and the Western Cape.">
+<title>XPRESSO Café — Everything R14 | Affordable Coffee Shops in Cape Town</title>
+<meta name="description" content="XPRESSO Café is South Africa's first R14 take-away coffee franchise — every item on the menu is R14. Coffee, pastries, sandwiches and treats across Cape Town and the Western Cape.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://xpressocafe.co.za/">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="XPRESSO Café">
-<meta property="og:title" content="XPRESSO Café — Everything R10">
-<meta property="og:description" content="South Africa's first R10 take-away coffee franchise. Coffee, pastries, sandwiches and treats — every item R10.">
+<meta property="og:title" content="XPRESSO Café — Everything R14">
+<meta property="og:description" content="South Africa's first R14 take-away coffee franchise. Coffee, pastries, sandwiches and treats — every item R14.">
 <meta property="og:url" content="https://xpressocafe.co.za/">
 <meta property="og:locale" content="en_ZA">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="XPRESSO Café — Everything R10">
-<meta name="twitter:description" content="South Africa's first R10 take-away coffee franchise. Every item on the menu, R10.">
+<meta name="twitter:title" content="XPRESSO Café — Everything R14">
+<meta name="twitter:description" content="South Africa's first R14 take-away coffee franchise. Every item on the menu, R14.">
 <meta name="theme-color" content="#140C08">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<!-- Kaushan Script (brush-marker style, matching the Xpresso quote banner)
+     is self-hosted rather than pulled from Google Fonts. GSAP/Three taught
+     the same lesson earlier in this build: a CDN that fails silently
+     replaces the whole headline typeface with a generic serif fallback,
+     and on a page where the headline font IS the design, that's a bigger
+     failure than it looks. -->
+<style>
+@font-face{
+  font-family:'Kaushan Script';
+  src:url('vendor/kaushan-script.woff2') format('woff2');
+  font-weight:400;font-style:normal;font-display:swap;
+}
+</style>
 <link rel="stylesheet" href="styles.css">
 
 <script type="application/ld+json">
@@ -31,7 +44,7 @@
   "name":"XPRESSO Café",
   "url":"https://xpressocafe.co.za/",
   "email":"info@xpressocafe.co.za",
-  "description":"South Africa's first R10 take-away coffee shop franchise. Every item on the menu is R10.",
+  "description":"South Africa's first R14 take-away coffee shop franchise. Every item on the menu is R14.",
   "areaServed":{"@type":"State","name":"Western Cape, South Africa"}
 }
 </script>
@@ -91,7 +104,7 @@
   <section class="hero" data-env="espresso">
     <div class="hero-inner">
       <div class="hero-top">
-        <span class="eyebrow">South Africa · Since the first R10 cup</span>
+        <span class="eyebrow">South Africa · Everything, one price</span>
         <span class="rule" aria-hidden="true"></span>
       </div>
       <h1 class="hero-title display d-xl">
@@ -132,7 +145,7 @@
   <!-- 03 PRICE MOMENT -->
   <section class="price" id="price" data-env="crema">
     <div class="price-stage">
-      <div class="price-huge" id="priceHuge">R10</div>
+      <div class="price-huge" id="priceHuge" data-price>R14</div>
       <div class="price-word" id="priceWord">Everything.</div>
       <div class="price-orbit" id="priceOrbit">
         <span>Coffee</span><span>Pastries</span><span>Sandwiches</span>
@@ -290,7 +303,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© <span id="yr"></span> XPRESSO Café. Everything R10.</span>
+      <span>© <span id="yr"></span> XPRESSO Café. Everything R14.</span>
       <span>Proudly South African</span>
     </div>
   </div>

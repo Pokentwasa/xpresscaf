@@ -10,7 +10,7 @@
    HERE ONLY — it propagates to the hero, the price moment, the
    menu rows, SEO copy and the footer.
    ------------------------------------------------------------ */
-const XPRESSO_PRICE = 'R10';
+const XPRESSO_PRICE = 'R14';
 
 /* ------------------------------------------------------------
    MENU

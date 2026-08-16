@@ -500,6 +500,12 @@ import * as THREE from 'three';
   const yr = document.getElementById('yr');
   if (yr) yr.textContent = new Date().getFullYear();
 
+  /* Sync every static "R14" in the HTML to the single source of truth in
+     data.js, so changing XPRESSO_PRICE actually changes the price
+     everywhere — including the huge price-moment numeral — instead of
+     relying on find-and-replace across the markup staying in sync by hand. */
+  document.querySelectorAll('[data-price]').forEach(el => { el.textContent = PRICE; });
+
   /* ==========================================================
      GSAP CHOREOGRAPHY
      ========================================================== */
