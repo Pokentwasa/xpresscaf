@@ -496,6 +496,61 @@ import * as THREE from 'three';
       `<blockquote class="voice"><p>“${v.q}”</p><cite class="src">${v.s}</cite></blockquote>`).join('');
   })();
 
+  /* ==========================================================
+     IMAGERY — real photography wired from images.js
+     ========================================================== */
+  (function buildImagery(){
+    if (typeof IMAGES === 'undefined') return;
+
+    const set = (id, key) => {
+      const el = document.getElementById(id);
+      const im = IMAGES[key];
+      if (!el || !im) return;
+      el.src = im.src;
+      el.alt = im.alt;
+    };
+
+    set('bannerBg', 'counter');
+    set('bannerProductImg', 'threeCups');
+    set('duoImg', 'barista');
+
+    /* customer photo wall */
+    const wall = document.getElementById('photoWall');
+    if (wall && typeof WALL !== 'undefined') {
+      wall.innerHTML = WALL.map(w => {
+        const im = IMAGES[w.k];
+        if (!im) return '';
+        return `<div class="img-slot ${w.cls}">
+          <img src="${im.src}" alt="${im.alt}" loading="lazy" decoding="async">
+        </div>`;
+      }).join('');
+    }
+
+    /* marquee — duplicated once so the -50% loop is seamless */
+    const mq = document.getElementById('marqueeTrack');
+    if (mq) {
+      const words = ['Everything R14','Freshly brewed','Cape Town','Coffee for everyone',
+                     'Pastries &amp; more','Sweet treats','Since the first cup'];
+      const run = words.map(w => `<span>${w}</span><i></i>`).join('');
+      mq.innerHTML = run + run;
+    }
+
+    /* scattered beans */
+    document.querySelectorAll('.scatter').forEach(sc => {
+      const n = MOBILE ? 5 : 9;
+      let html = '';
+      for (let i = 0; i < n; i++) {
+        const s  = 16 + Math.random() * 30;
+        const x  = Math.random() * 100;
+        const y  = Math.random() * 100;
+        const r  = -50 + Math.random() * 100;
+        const o  = 0.28 + Math.random() * 0.4;
+        html += `<b style="--s:${s.toFixed(0)}px;--r:${r.toFixed(0)}deg;--o:${o.toFixed(2)};left:${x.toFixed(1)}%;top:${y.toFixed(1)}%"></b>`;
+      }
+      sc.innerHTML = html;
+    });
+  })();
+
   /* year */
   const yr = document.getElementById('yr');
   if (yr) yr.textContent = new Date().getFullYear();

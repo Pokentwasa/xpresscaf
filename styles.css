@@ -29,7 +29,7 @@
   --pale-dim:rgba(250,245,238,.34);
 
   --font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;
-  --font-script:'Kaushan Script',cursive;
+  --font-script:'Caveat',cursive;
 
   --ease:cubic-bezier(.22,.61,.36,1);
   --snap:cubic-bezier(.16,1,.3,1);
@@ -242,9 +242,9 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer;}
    line-height so ascenders/descenders and swashes don't clip. */
 .display{
   font-family:var(--font-script);
-  font-weight:400;
-  letter-spacing:0;
-  line-height:1.12;
+  font-weight:500;          /* Caveat is hand-drawn and thin — no bold */
+  letter-spacing:.005em;
+  line-height:1.02;
   text-transform:none;
 }
 .d-xl{font-size:clamp(44px,10.5vw,168px);}
@@ -718,3 +718,172 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer;}
   .mask > span{transform:none!important;opacity:1!important;}
   #bg-canvas{opacity:.5;}
 }
+
+/* ============================================================
+   IMAGE-LED LAYER
+   Duckbill-style: full-bleed photography, product cut-outs
+   floating over it, scattered decorations, marquee, photo wall.
+
+   Every .img-slot is a real <img> container. Drop a photo in and
+   it takes over; leave it empty and it renders as a labelled
+   placeholder rather than a broken box.
+   ============================================================ */
+
+/* ---- 1. FULL-BLEED PHOTO BANNER ---- */
+.banner{
+  position:relative;
+  min-height:min(88svh,760px);
+  display:flex;align-items:center;
+  overflow:hidden;
+  isolation:isolate;
+}
+.banner-bg{
+  position:absolute;inset:0;z-index:0;
+}
+.banner-bg img{
+  width:100%;height:100%;object-fit:cover;display:block;
+}
+/* readability scrim — photography behind type always needs one */
+.banner-bg::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,
+    rgba(20,12,8,.88) 0%,
+    rgba(20,12,8,.62) 42%,
+    rgba(20,12,8,.15) 100%);
+}
+.banner-inner{
+  position:relative;z-index:2;
+  width:100%;max-width:var(--container);
+  margin:0 auto;padding:0 var(--gut);
+  display:grid;grid-template-columns:1.05fr .95fr;
+  gap:40px;align-items:center;
+}
+.banner-copy .display{color:var(--milk);}
+.banner-copy .lede{color:rgba(250,245,238,.72);margin-top:18px;max-width:44ch;}
+.banner-cta{margin-top:30px;display:flex;gap:12px;flex-wrap:wrap;}
+
+/* product cut-out that floats over the banner */
+.banner-product{
+  position:relative;
+  display:flex;align-items:center;justify-content:center;
+  will-change:transform;
+}
+.banner-product img{
+  width:min(100%,460px);height:auto;
+  filter:drop-shadow(0 40px 60px rgba(0,0,0,.55));
+}
+
+/* ---- 2. IMAGE SLOTS ---- */
+.img-slot{
+  position:relative;overflow:hidden;
+  background:linear-gradient(135deg,#241610,#140C08);
+  border-radius:var(--r,10px);
+}
+.img-slot img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform 1.1s var(--ease);
+}
+.img-slot:hover img{transform:scale(1.05);}
+/* labelled placeholder when no <img> is present */
+.img-slot:empty::after,
+.img-slot--empty::after{
+  content:attr(data-label);
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  text-align:center;padding:16px;
+  font-size:10.5px;font-weight:700;letter-spacing:.18em;
+  text-transform:uppercase;color:rgba(228,201,163,.42);
+  border:1px dashed rgba(228,201,163,.22);
+  border-radius:inherit;
+}
+
+/* ---- 3. MARQUEE TICKER ---- */
+.marquee{
+  overflow:hidden;white-space:nowrap;
+  padding:18px 0;
+  border-top:1px solid rgba(250,245,238,.1);
+  border-bottom:1px solid rgba(250,245,238,.1);
+  background:var(--espresso);
+}
+.marquee-track{
+  display:inline-flex;gap:34px;align-items:center;
+  will-change:transform;
+  animation:marquee 26s linear infinite;
+}
+.marquee span{
+  font-family:var(--font-script);
+  font-size:clamp(20px,2.6vw,34px);
+  color:var(--crema);white-space:nowrap;
+}
+.marquee i{
+  width:9px;height:12px;flex-shrink:0;
+  border-radius:50% 50% 48% 48%/58% 58% 42% 42%;
+  background:var(--volt);transform:rotate(-16deg);
+  display:inline-block;
+}
+@keyframes marquee{to{transform:translateX(-50%);}}
+.marquee:hover .marquee-track{animation-play-state:paused;}
+
+/* ---- 4. PHOTO WALL ---- */
+.wall{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  grid-auto-rows:190px;gap:12px;margin-top:36px;
+}
+.wall .img-slot{--r:8px;}
+.wall .tall{grid-row:span 2;}
+.wall .wide{grid-column:span 2;}
+
+/* ---- 5. SCATTERED BEAN DECORATIONS ---- */
+.scatter{position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden;}
+.scatter b{
+  position:absolute;display:block;
+  width:var(--s,26px);height:calc(var(--s,26px)*1.32);
+  border-radius:50% 50% 48% 48%/58% 58% 42% 42%;
+  background:radial-gradient(ellipse at 32% 28%, #6F4726, #2A180E 72%);
+  opacity:var(--o,.5);
+  transform:rotate(var(--r,-14deg));
+  will-change:transform;
+}
+.scatter b::after{
+  content:'';position:absolute;left:50%;top:8%;
+  width:1.5px;height:84%;margin-left:-.75px;
+  background:rgba(0,0,0,.5);border-radius:2px;
+}
+
+/* ---- 6. SPLIT IMAGE + COPY ---- */
+.duo{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:clamp(24px,4vw,64px);align-items:center;
+}
+.duo .img-slot{aspect-ratio:4/5;--r:12px;}
+.duo--flip .duo-copy{order:2;}
+
+/* ---- RESPONSIVE ---- */
+@media (max-width:900px){
+  .banner{min-height:auto;padding:clamp(90px,14vh,130px) 0;}
+  .banner-inner{grid-template-columns:1fr;gap:34px;}
+  .banner-bg::after{
+    background:linear-gradient(180deg,
+      rgba(20,12,8,.82) 0%,
+      rgba(20,12,8,.70) 55%,
+      rgba(20,12,8,.86) 100%);
+  }
+  .banner-product{order:-1;}
+  .banner-product img{width:min(74%,300px);}
+  .wall{grid-template-columns:repeat(2,1fr);grid-auto-rows:150px;}
+  .wall .wide{grid-column:span 2;}
+  .duo{grid-template-columns:1fr;}
+  .duo--flip .duo-copy{order:0;}
+}
+@media (max-width:480px){
+  .wall{grid-auto-rows:128px;gap:8px;}
+}
+@media (prefers-reduced-motion:reduce){
+  .marquee-track{animation:none;}
+  .img-slot:hover img{transform:none;}
+}
+
+/* banner product frame */
+.banner-frame{--r:14px;box-shadow:0 40px 90px rgba(0,0,0,.55);}
+.banner-bg img{width:100%;height:100%;object-fit:cover;}
