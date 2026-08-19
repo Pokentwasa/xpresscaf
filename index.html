@@ -217,28 +217,82 @@
     </div>
   </section>
 
+  <!-- 04b FOUNDER & SCALE STORY — franchise, elevated above the locator -->
+  <section class="sec founder" id="franchise" data-env="bean">
+    <div class="founder-grid">
+      <div>
+        <p class="eyebrow" data-reveal>The opportunity</p>
+        <h2 class="display d-md" style="margin-top:14px">
+          <span class="mask"><span>Build the Next Xpresso.</span></span>
+        </h2>
+        <div class="founder-stats">
+          <div class="founder-stat"><div class="n">75+</div><div class="l">Stores nationwide</div></div>
+          <div class="founder-stat"><div class="n">R14</div><div class="l">One price, every item</div></div>
+          <div class="founder-stat"><div class="n">1</div><div class="l">Flagship it started from</div></div>
+        </div>
+        <div class="founder-journey">
+          <div class="founder-step"><div class="yr">The start</div><p>One flagship café in Durbanville, built on a single stubborn idea — everything, one price.</p></div>
+          <div class="founder-step"><div class="yr">The proof</div><p>Queues out the door. Press asking how the numbers even work. A model that travelled.</p></div>
+          <div class="founder-step"><div class="yr">Today</div><p>75+ stores pouring the same cup across South Africa — and room for the next one to be yours.</p></div>
+        </div>
+        <a href="mailto:franchise@xpressocafe.co.za?subject=Franchise%20application" class="btn btn-volt" data-cursor="mail">Explore franchising <span class="ar" aria-hidden="true">&rarr;</span></a>
+      </div>
+
+      <div class="founder-offer">
+        <h4>A turnkey operation</h4>
+        <ul>
+          <li><span>&#9656;</span> Full shop fittings — designed, delivered, installed</li>
+          <li><span>&#9656;</span> Every piece of equipment, from the coffee machine to the baking pans</li>
+          <li><span>&#9656;</span> Your initial franchise fee, all in</li>
+          <li><span>&#9656;</span> Complete staff training before you open the doors</li>
+        </ul>
+        <p class="founder-fine">Does not include start-up stock. Terms and conditions apply.</p>
+        <a href="mailto:franchise@xpressocafe.co.za?subject=Franchise%20application" class="btn btn-ghost" data-cursor="mail">Request the franchise pack <span class="ar" aria-hidden="true">&rarr;</span></a>
+      </div>
+    </div>
+
+    <!-- Vouchers, demoted to a slim strip so it no longer competes with franchise -->
+    <div class="voucher-strip">
+      <p><b>Send some coffee.</b> Buy a voucher for someone who needs it — our customers have been doing it since day one, and it's one of the things we're proudest of.</p>
+      <a href="mailto:info@xpressocafe.co.za?subject=Voucher%20enquiry" class="btn btn-ghost" data-cursor="mail">Get a voucher <span class="ar" aria-hidden="true">&rarr;</span></a>
+    </div>
+  </section>
+
   <!-- 05 LOCATIONS -->
   <section class="sec loc" id="locations" data-env="milk">
     <div class="wrap">
-      <div class="loc-head">
+      <div class="loc-intro">
         <div>
           <p class="eyebrow" data-reveal>Find us</p>
           <h2 class="display d-md" style="margin-top:14px">
-            <span class="mask"><span>Find your</span></span>
-            <span class="mask"><span>Xpresso.</span></span>
+            <span class="mask"><span>Find your Xpresso.</span></span>
           </h2>
         </div>
-        <div class="loc-controls">
-          <label class="loc-search">
-            <span aria-hidden="true">⌕</span>
-            <input type="search" id="locSearch" placeholder="Search suburb, mall or street…" aria-label="Search Xpresso locations">
-          </label>
+        <div class="loc-cta-row">
+          <button class="loc-locate" id="locLocate" data-cursor="go">&#9678; Use my location</button>
+          <button class="loc-browse" id="locBrowse" data-cursor="explore">Browse all 75+ stores</button>
         </div>
       </div>
-      <div class="loc-grid" id="locGrid"></div>
-      <div class="loc-new">
-        <p>Got a great new location for us? <b>We're popping up everywhere fast.</b></p>
-        <a href="mailto:info@xpressocafe.co.za?subject=New%20location%20suggestion" class="loc-btn solid" data-cursor="mail">Suggest a spot</a>
+      <p class="loc-status" id="locStatus">Tap &ldquo;Use my location&rdquo; and we&rsquo;ll surface your three nearest Xpressos.</p>
+      <div class="loc-near" id="locGrid"></div>
+
+      <!-- Full-list drawer: search + province filter across the national footprint -->
+      <div class="loc-drawer" id="locDrawer" role="dialog" aria-modal="true" aria-label="All Xpresso locations">
+        <div class="loc-drawer-scrim" id="locDrawerScrim"></div>
+        <div class="loc-drawer-panel">
+          <div class="loc-drawer-head">
+            <div class="row">
+              <p class="eyebrow" style="color:var(--volt)">Every Xpresso</p>
+              <button class="loc-drawer-close" id="locDrawerClose" aria-label="Close">&times;</button>
+            </div>
+            <label class="loc-search">
+              <span aria-hidden="true">&#9906;</span>
+              <input type="search" id="locSearch" placeholder="Search suburb, mall, city or province…" aria-label="Search Xpresso locations">
+            </label>
+            <div class="loc-chips" id="locChips"></div>
+          </div>
+          <div class="loc-drawer-list" id="locList"></div>
+        </div>
       </div>
     </div>
   </section>
@@ -260,31 +314,6 @@
         <div><span class="k">Venue hire</span> <span class="v"><b>R500</b> for 2 hours</span></div>
         <div><span class="k">Please note</span> <span class="v">No individual table bookings — the form books the entire venue.</span></div>
         <a href="mailto:info@xpressocafe.co.za?subject=Event%20booking%20enquiry" class="btn btn-volt" data-cursor="book">Plan your event <span class="ar" aria-hidden="true">→</span></a>
-      </div>
-    </div>
-  </section>
-
-  <!-- 07 VOUCHERS + FRANCHISE -->
-  <section class="sec" id="franchise" data-env="espresso" style="padding-left:0;padding-right:0">
-    <div class="split">
-      <div>
-        <p class="eyebrow">Vouchers</p>
-        <h3>Send some coffee.</h3>
-        <p>Buy a voucher for someone who needs it. Our customers have been doing it since day one — it's one of the things we're proudest of.</p>
-        <a href="mailto:info@xpressocafe.co.za?subject=Voucher%20enquiry" class="btn btn-ghost" data-cursor="mail">Get a voucher <span class="ar" aria-hidden="true">→</span></a>
-      </div>
-      <div>
-        <p class="eyebrow">Franchise</p>
-        <h3>Build the next Xpresso.</h3>
-        <p>A turnkey operation. Join the XPRESSO family and own your own shop.</p>
-        <ul>
-          <li>Shop fittings</li>
-          <li>Shop equipment — from your coffee machine to your baking pans</li>
-          <li>Initial franchise fee</li>
-          <li>Staff training</li>
-        </ul>
-        <p style="font-size:13px;color:var(--pale-dim)">Does not include start-up stock. Terms and conditions apply.</p>
-        <a href="mailto:franchise@xpressocafe.co.za?subject=Franchise%20application" class="btn btn-volt" data-cursor="mail">Explore franchising <span class="ar" aria-hidden="true">→</span></a>
       </div>
     </div>
   </section>
@@ -357,7 +386,6 @@
   </div>
 </footer>
 
-<div class="menu-float" id="menuFloat" aria-hidden="true"><div class="ph"><span class="glyph"></span><span class="lb"></span></div></div>
 
 <!-- Self-hosted so the experience never depends on a third-party CDN
      being reachable. Also removes a render-blocking external round-trip. -->
