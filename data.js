@@ -31,54 +31,65 @@ const MENU = [
 ];
 
 /* ------------------------------------------------------------
-   LOCATIONS — all 8 currently listed, Western Cape.
-   Structured with province so national expansion just works.
+   LOCATIONS — 8 real stores seeded (Western Cape), each with
+   coordinates for the nearest-store engine. Structured with
+   province + city + lat/lng so scaling to the full 75+ national
+   footprint is just appending objects in this same shape.
+   >>> ADD THE REMAINING ~67 STORES BELOW IN THIS EXACT FORMAT. <<<
    ------------------------------------------------------------ */
 const LOCATIONS = [
   {
     name:'Durbanville', province:'Western Cape', city:'Durbanville', tag:'Head office',
+    lat:-33.8309, lng:18.6469,
     address:'16 Wellington Road, Basol Building, Durbanville',
     phone:'021 975 4209',
     hours:[['Mon – Fri','7am – 6pm'],['Sat','7am – 4pm'],['Sun','8am – 1pm'],['Public holidays','8am – 1pm']]
   },
   {
     name:'Canal Walk', province:'Western Cape', city:'Cape Town', tag:'Mall',
+    lat:-33.8916, lng:18.5116,
     address:'Century Blvd, Shop LP7, Upper level, Entrance 12',
     phone:'021 551 0548',
     hours:[['Mon – Fri','8am – 9pm'],['Sat','8am – 9pm'],['Sun','8am – 9pm'],['Public holidays','8am – 9pm']]
   },
   {
     name:'Cape Town CBD', province:'Western Cape', city:'Cape Town', tag:'City',
+    lat:-33.9226, lng:18.4213,
     address:'Shop 6, Town Square, 61 Adderley Street, Cape Town',
     phone:'021 422 0437',
     hours:[['Mon – Fri','6:15am – 6pm'],['Sat','7am – 4pm'],['Sun','8am – 1pm'],['Public holidays','8am – 1pm']]
   },
   {
     name:'Cape Gate', province:'Western Cape', city:'Brackenfell', tag:'Mall',
+    lat:-33.842, lng:18.696,
     address:'Cape Gate Mall, Cnr Okavango & de Bron, Brackenfell (Woolworths Entrance)',
     phone:'021 981 3057',
     hours:[['Mon – Fri','8am – 8pm'],['Sat','8am – 8pm'],['Sun','8am – 6pm'],['Public holidays','8am – 6pm']]
   },
   {
     name:'Stellenbosch', province:'Western Cape', city:'Stellenbosch', tag:'Mall',
+    lat:-33.9369, lng:18.8602,
     address:'Shop 44, Eikestad Mall, Adringa Street, Stellenbosch',
     phone:'021 883 3012',
     hours:[['Mon – Fri','7am – 6pm'],['Sat','7am – 6pm'],['Sun','8am – 2pm'],['Public holidays','7am – 6pm']]
   },
   {
     name:'N1 City', province:'Western Cape', city:'Goodwood', tag:'Mall',
+    lat:-33.893, lng:18.557,
     address:'Shop U28B N1 City, Food Court Entrance, Next to RocoMamas',
     phone:'021 595 0013',
     hours:[['Mon – Fri','9am – 7pm'],['Sat','9am – 5pm'],['Sun','9am – 5pm'],['Public holidays','9am – 5pm']]
   },
   {
     name:'Vangate Mall', province:'Western Cape', city:'Athlone', tag:'Mall',
+    lat:-33.972, lng:18.523,
     address:'Shop 68 Vangate Mall, Jakes Gerwel Drive, Athlone, Cape Town',
     phone:'081 776 6366',
     hours:[['Mon – Fri','8am – 7pm'],['Sat','8am – 7pm'],['Sun','8am – 6pm'],['Public holidays','9am – 5pm']]
   },
   {
     name:'Table Bay Mall', province:'Western Cape', city:'Sunningdale', tag:'Mall',
+    lat:-33.765, lng:18.49,
     address:'Table Bay Mall, Shop G014, W Coast Rd & Berkshire Blvd, Sunningdale, Cape Town',
     phone:null, /* PLACEHOLDER: no phone number published for this branch */
     hours:[['Mon – Fri','8am – 7pm'],['Sat','8am – 7pm'],['Sun','8am – 5pm'],['Public holidays','9am – 5pm']]
@@ -104,9 +115,9 @@ const VOICES = [
    The scroll transition between these is animated.
    ------------------------------------------------------------ */
 const ENVIRONMENTS = {
-  espresso:{ bg:'#140C08', fg:'#FAF5EE' },
-  bean:    { bg:'#241610', fg:'#FAF5EE' },
-  crema:   { bg:'#E4C9A3', fg:'#140C08' },
-  paper:   { bg:'#FAF5EE', fg:'#140C08' },
-  milk:    { bg:'#F2EAE0', fg:'#140C08' }
+  espresso:{ bg:'#1C1614', fg:'#F9F6F0' },  /* Deep Espresso */
+  bean:    { bg:'#241A15', fg:'#F9F6F0' },  /* one soft step up */
+  crema:   { bg:'#EFEAD8', fg:'#201B18' },  /* Oatmeal Canvas */
+  paper:   { bg:'#F9F6F0', fg:'#201B18' },  /* Soft Cream */
+  milk:    { bg:'#EFEAD8', fg:'#201B18' }   /* aligned to Oatmeal */
 };
