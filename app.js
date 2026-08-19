@@ -375,8 +375,9 @@ import * as THREE from 'three';
     function paint(cat) {
       const items = cat === 'all' ? MENU_D : MENU_D.filter(m => m.cat === cat);
       list.innerHTML = items.map((m, i) => `
-        <article class="menu-row" data-cursor="view" data-glyph="${m.glyph}" data-name="${m.name}">
+        <article class="menu-row">
           <span class="num">${String(i + 1).padStart(2, '0')}</span>
+          <span class="menu-thumb" aria-hidden="true">${m.glyph}</span>
           <h3 class="nm">${m.name}<span class="ds">${m.desc}</span></h3>
           <span class="pr">${PRICE}</span>
         </article>`).join('');
@@ -400,51 +401,46 @@ import * as THREE from 'three';
       });
     });
 
-    /* floating tile that follows the cursor */
-    const float = document.getElementById('menuFloat');
-    if (float && !TOUCH && !REDUCED) {
-      const glyph = float.querySelector('.glyph');
-      const label = float.querySelector('.lb');
-      let fx = 0, fy = 0, ftx = 0, fty = 0, on = false;
-
-      list.addEventListener('mouseover', e => {
-        const row = e.target.closest('.menu-row');
-        if (!row) return;
-        glyph.textContent = row.dataset.glyph || '☕';
-        label.textContent = row.dataset.name || '';
-        float.classList.add('on'); on = true;
-      });
-      list.addEventListener('mouseout', e => {
-        if (!e.target.closest('.menu-row')) return;
-        float.classList.remove('on'); on = false;
-      });
-      addEventListener('mousemove', e => { ftx = e.clientX; fty = e.clientY; }, { passive: true });
-
-      (function fLoop() {
-        fx = lerp(fx, ftx, 0.12); fy = lerp(fy, fty, 0.12);
-        const rot = clamp((ftx - fx) * 0.16, -12, 12);
-        float.style.transform =
-          `translate(${fx}px,${fy}px) translate(-50%,-50%) rotate(${rot}deg) scale(${on ? 1 : .9})`;
-        requestAnimationFrame(fLoop);
-      })();
-    }
   })();
 
   /* ==========================================================
-     BUILD LOCATIONS
+     BUILD LOCATIONS — nearest-first engine + full drawer
+     Scales to the full 75+ national footprint automatically:
+     add stores (with lat/lng) to LOCATIONS in data.js.
      ========================================================== */
   (function buildLocations() {
-    const grid = document.getElementById('locGrid');
-    const search = document.getElementById('locSearch');
-    if (!grid) return;
+    const grid    = document.getElementById('locGrid');     // nearest-3 result grid
+    const status  = document.getElementById('locStatus');
+    const locate  = document.getElementById('locLocate');
+    const browse  = document.getElementById('locBrowse');
+    const drawer  = document.getElementById('locDrawer');
+    const scrim   = document.getElementById('locDrawerScrim');
+    const closeB  = document.getElementById('locDrawerClose');
+    const search  = document.getElementById('locSearch');
+    const listEl  = document.getElementById('locList');
+    const chipsEl = document.getElementById('locChips');
+    if (!grid || !LOC_D.length) return;
 
-    function card(l) {
-      const maps = 'https://www.google.com/maps/search/?api=1&query=' +
-                   encodeURIComponent('Xpresso Cafe ' + l.address);
+    const mapsUrl = l => 'https://www.google.com/maps/search/?api=1&query=' +
+                    encodeURIComponent('Xpresso Cafe ' + l.address);
+
+    /* Haversine distance in km */
+    function distKm(aLat, aLng, bLat, bLng) {
+      const R = 6371, toR = d => d * Math.PI / 180;
+      const dLat = toR(bLat - aLat), dLng = toR(bLng - aLng);
+      const x = Math.sin(dLat/2)**2 +
+                Math.cos(toR(aLat)) * Math.cos(toR(bLat)) * Math.sin(dLng/2)**2;
+      return R * 2 * Math.atan2(Math.sqrt(x), Math.sqrt(1 - x));
+    }
+
+    /* ---- nearest-3 result cards ---- */
+    function nearCard(l) {
+      const d = l._dist != null ? `<span class="dist">${l._dist.toFixed(1)} km</span>` : '';
       return `
       <article class="loc-card">
+        ${d}
         <div>
-          <p class="eyebrow" style="color:var(--volt);font-size:10px">${l.tag} · ${l.city}</p>
+          <p class="eyebrow" style="font-size:10px">${l.tag} &middot; ${l.city}</p>
           <h3 style="margin-top:8px">${l.name}</h3>
         </div>
         <p class="addr">${l.address}</p>
@@ -452,37 +448,92 @@ import * as THREE from 'three';
           ${l.hours.map(h => `<div><span>${h[0]}</span><b>${h[1]}</b></div>`).join('')}
         </div>
         <div class="loc-actions">
-          <a class="loc-btn solid" href="${maps}" target="_blank" rel="noopener" data-cursor="go">Get directions</a>
+          <a class="loc-btn solid" href="${mapsUrl(l)}" target="_blank" rel="noopener" data-cursor="go">Get directions</a>
           ${l.phone ? `<a class="loc-btn" href="tel:${l.phone.replace(/\s/g,'')}" data-cursor="call">${l.phone}</a>` : ''}
         </div>
       </article>`;
     }
 
-    function paint(q) {
-      const term = (q || '').trim().toLowerCase();
-      const rows = !term ? LOC_D : LOC_D.filter(l =>
-        (l.name + ' ' + l.address + ' ' + l.city + ' ' + l.province + ' ' + l.tag)
-          .toLowerCase().includes(term));
-
-      grid.innerHTML = rows.length
-        ? rows.map(card).join('')
-        : `<div class="loc-empty">No Xpresso found for “${q}”. We're popping up everywhere fast —
-             <a href="mailto:info@xpressocafe.co.za" style="color:var(--volt);font-weight:700">tell us where you want one</a>.</div>`;
-
+    function paintNear(rows) {
+      grid.innerHTML = rows.map(nearCard).join('');
       if (window.gsap && !REDUCED) {
         gsap.fromTo(grid.querySelectorAll('.loc-card'),
           { y: 22, opacity: 0 },
-          { y: 0, opacity: 1, duration: .5, ease: 'power3.out', stagger: .04, overwrite: true });
+          { y: 0, opacity: 1, duration: .5, ease: 'power3.out', stagger: .06, overwrite: true });
       }
     }
 
-    paint('');
+    /* default view before geolocation: the flagship + two mall anchors */
+    paintNear(LOC_D.slice(0, 3));
+
+    /* ---- geolocation: surface the 3 nearest ---- */
+    if (locate) {
+      locate.addEventListener('click', () => {
+        if (!navigator.geolocation) {
+          status.textContent = 'Location isn\'t available on this device — browse the full list instead.';
+          return;
+        }
+        locate.classList.add('busy');
+        status.textContent = 'Finding your nearest Xpressos…';
+        navigator.geolocation.getCurrentPosition(pos => {
+          const { latitude, longitude } = pos.coords;
+          const ranked = LOC_D
+            .filter(l => typeof l.lat === 'number' && typeof l.lng === 'number')
+            .map(l => ({ ...l, _dist: distKm(latitude, longitude, l.lat, l.lng) }))
+            .sort((a, b) => a._dist - b._dist);
+          const top = ranked.slice(0, 3);
+          locate.classList.remove('busy');
+          if (!top.length) { status.textContent = 'No mapped stores yet — browse the full list.'; return; }
+          status.textContent = `Your ${top.length} nearest — closest is ${top[0].name}, ${top[0]._dist.toFixed(1)} km away.`;
+          paintNear(top);
+        }, () => {
+          locate.classList.remove('busy');
+          status.textContent = 'Couldn\'t get your location. Search the full list instead.';
+          openDrawer();
+        }, { enableHighAccuracy: true, timeout: 8000, maximumAge: 60000 });
+      });
+    }
+
+    /* ---- full drawer: search + province filter across all stores ---- */
+    let activeProvince = 'All';
+    const provinces = ['All', ...Array.from(new Set(LOC_D.map(l => l.province)))];
+
+    function renderChips() {
+      chipsEl.innerHTML = provinces.map(p =>
+        `<button class="loc-chip${p === activeProvince ? ' on' : ''}" data-prov="${p}">${p}</button>`).join('');
+      chipsEl.querySelectorAll('.loc-chip').forEach(c =>
+        c.addEventListener('click', () => { activeProvince = c.dataset.prov; renderChips(); paintList(search.value); }));
+    }
+
+    function paintList(q) {
+      const term = (q || '').trim().toLowerCase();
+      const rows = LOC_D.filter(l => {
+        const provOk = activeProvince === 'All' || l.province === activeProvince;
+        const hay = `${l.name} ${l.address} ${l.city} ${l.province} ${l.tag}`.toLowerCase();
+        return provOk && (!term || hay.includes(term));
+      });
+      listEl.innerHTML = rows.length ? rows.map(l => `
+        <div class="loc-line">
+          <div>
+            <h4>${l.name}</h4>
+            <p class="meta">${l.tag} &middot; ${l.city}, ${l.province}<br>${l.address}</p>
+          </div>
+          <a class="go" href="${mapsUrl(l)}" target="_blank" rel="noopener" data-cursor="go">Directions &rarr;</a>
+        </div>`).join('')
+        : `<div class="loc-empty" style="padding:40px 0">No Xpresso matches that yet. We're popping up fast —
+             <a href="mailto:info@xpressocafe.co.za" style="color:var(--volt);font-weight:700">tell us where you want one</a>.</div>`;
+    }
+
+    function openDrawer() { drawer.classList.add('open'); document.body.style.overflow = 'hidden'; renderChips(); paintList(''); setTimeout(() => search && search.focus(), 400); }
+    function closeDrawer() { drawer.classList.remove('open'); document.body.style.overflow = ''; }
+
+    if (browse)  browse.addEventListener('click', openDrawer);
+    if (closeB)  closeB.addEventListener('click', closeDrawer);
+    if (scrim)   scrim.addEventListener('click', closeDrawer);
+    addEventListener('keydown', e => { if (e.key === 'Escape' && drawer.classList.contains('open')) closeDrawer(); });
     if (search) {
       let t;
-      search.addEventListener('input', e => {
-        clearTimeout(t);
-        t = setTimeout(() => paint(e.target.value), 130);
-      });
+      search.addEventListener('input', e => { clearTimeout(t); t = setTimeout(() => paintList(e.target.value), 120); });
     }
   })();
 
