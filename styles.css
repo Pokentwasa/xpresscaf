@@ -7,14 +7,14 @@
 
 :root{
   /* Environments — each section owns one */
-  --espresso:#140C08;
-  --bean:#241610;
+  --espresso:#1C1614;   /* Deep Espresso — unified dark canvas */
+  --bean:#241A15;       /* one gentle step up, so dark→dark never jolts */
   --coffee:#4A2E1E;
   --roast:#6F4726;
   --caramel:#C1793C;
-  --crema:#E4C9A3;
-  --milk:#F2EAE0;
-  --paper:#FAF5EE;
+  --crema:#EFEAD8;      /* Oatmeal Canvas — replaces the hard tan */
+  --milk:#EFEAD8;       /* aligned to Oatmeal so light sections share one tone */
+  --paper:#F9F6F0;      /* Soft Cream */
 
   /* Accent — Xpresso's real brand colour (Fountain Blue), not invented.
      Verified against brand data: #58BFC0 / #FFFFFF / #424242. */
@@ -22,11 +22,12 @@
   --volt-soft:#7ED4D5;
   --charcoal:#424242;
 
-  --ink:#140C08;
-  --ink-mid:rgba(20,12,8,.62);
-  --ink-dim:rgba(20,12,8,.38);
-  --pale:rgba(250,245,238,.62);
-  --pale-dim:rgba(250,245,238,.34);
+  --ink:#201B18;                  /* warm roasted espresso text (was pure-ish #140C08) */
+  --ink-mid:#6B625E;              /* warm gray-brown muted text/tags */
+  --ink-dim:rgba(32,27,24,.42);
+  --pale:rgba(249,246,240,.66);
+  --pale-dim:rgba(249,246,240,.36);
+  --hair:1px solid rgba(32,27,24,.08);   /* subtle section divider */
 
   --font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;
   --font-script:'Caveat',cursive;
@@ -38,8 +39,8 @@
   --container:1440px;
 
   /* live background — animated between environments */
-  --env-bg:#140C08;
-  --env-fg:#FAF5EE;
+  --env-bg:#1C1614;
+  --env-fg:#F9F6F0;
 }
 
 html{scroll-behavior:auto;-webkit-text-size-adjust:100%;}
@@ -99,7 +100,7 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer;}
 }
 .pre-word span{
   font-size:clamp(34px,7vw,72px);
-  font-weight:900;letter-spacing:-.06em;
+  font-weight:500;letter-spacing:-.02em;
   color:var(--milk);
   transform:translateY(110%);
   display:inline-block;
@@ -242,14 +243,16 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer;}
    line-height so ascenders/descenders and swashes don't clip. */
 .display{
   font-family:var(--font-script);
-  font-weight:500;          /* Caveat is hand-drawn and thin — no bold */
+  font-weight:400;            /* natural hand-drawn stroke — never bold */
   letter-spacing:.005em;
-  line-height:1.02;
-  text-transform:none;
+  line-height:1.08;           /* more air so ascenders/swashes breathe */
+  text-transform:none;        /* always Title Case, never uppercase */
+  padding-bottom:14px;        /* flourishes clear the elements below */
 }
-.d-xl{font-size:clamp(44px,10.5vw,168px);}
-.d-lg{font-size:clamp(36px,7.4vw,120px);}
-.d-md{font-size:clamp(28px,5vw,76px);}
+/* script scaled up 15–20% to lead sections with warmth */
+.d-xl{font-size:clamp(52px,12.3vw,198px);}
+.d-lg{font-size:clamp(42px,8.7vw,140px);}
+.d-md{font-size:clamp(33px,5.9vw,90px);}
 .eyebrow{
   font-size:11px;font-weight:800;letter-spacing:.28em;
   text-transform:uppercase;color:var(--volt);
@@ -287,12 +290,23 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer;}
    on top; if GSAP fails to load, every section still renders with
    correct contrast instead of dark-on-dark.
    ------------------------------------------------------------ */
-[data-env]{background:var(--espresso);color:var(--milk);}
-[data-env="espresso"]{background:var(--espresso);color:var(--milk);}
-[data-env="bean"]{background:var(--bean);color:var(--milk);}
+[data-env]{background:var(--espresso);color:var(--paper);}
+[data-env="espresso"]{background:var(--espresso);color:var(--paper);}
+[data-env="bean"]{background:var(--bean);color:var(--paper);}
 [data-env="crema"]{background:var(--crema);color:var(--ink);}
 [data-env="paper"]{background:var(--paper);color:var(--ink);}
 [data-env="milk"]{background:var(--milk);color:var(--ink);}
+
+/* Hairline dividers replace hard full-bleed colour cuts.
+   A light section following another light section gets a soft rule;
+   the dark→light seam gets a warm gradient lead-in instead of a hard edge. */
+[data-env="paper"] + [data-env="milk"],
+[data-env="milk"]  + [data-env="paper"],
+[data-env="crema"] + [data-env="paper"],
+[data-env="paper"] + [data-env="crema"]{border-top:var(--hair);}
+[data-env="crema"],[data-env="paper"],[data-env="milk"]{
+  background-image:linear-gradient(180deg,rgba(28,22,20,.03),transparent 120px);
+}
 
 /* light environments flip their local type colours */
 [data-env="crema"] .display,
@@ -301,6 +315,9 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer;}
 [data-env="crema"] .lede,
 [data-env="paper"] .lede,
 [data-env="milk"]  .lede{color:var(--ink-mid);}
+[data-env="crema"] .eyebrow,
+[data-env="paper"] .eyebrow,
+[data-env="milk"]  .eyebrow{color:var(--volt);}
 
 /* ============================================================
    01 — HERO
@@ -338,12 +355,12 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer;}
   transition:transform .35s var(--snap),background .3s var(--ease),color .3s;
   will-change:transform;
 }
-.btn-solid{background:var(--milk);color:var(--espresso);}
-.btn-solid:hover{background:var(--volt);color:#fff;}
-.btn-ghost{border:1px solid rgba(250,245,238,.26);color:var(--milk);}
-.btn-ghost:hover{border-color:var(--volt);color:var(--volt);}
-.btn-volt{background:var(--volt);color:#fff;}
-.btn-volt:hover{background:var(--volt-soft);}
+/* Primary CTA — teal accent everywhere (SEE THE MENU / FIND A STORE / EXPLORE FRANCHISING) */
+.btn-solid,.btn-volt{background:var(--volt);color:#08302F;}
+.btn-solid:hover,.btn-volt:hover{background:var(--volt-soft);color:#08302F;transform:translateY(-1px);}
+/* Ghost adapts to its environment so it works on light + dark backgrounds */
+.btn-ghost{border:1px solid currentColor;color:inherit;opacity:.9;}
+.btn-ghost:hover{border-color:var(--volt);color:var(--volt);opacity:1;}
 .btn .ar{transition:transform .35s var(--snap);}
 .btn:hover .ar{transform:translateX(5px);}
 
@@ -376,8 +393,8 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer;}
 }
 .manifesto-reveal p{color:var(--pale);font-size:clamp(15px,1.6vw,19px);line-height:1.65;}
 .manifesto-reveal .big{
-  font-size:clamp(22px,3vw,40px);font-weight:800;
-  letter-spacing:-.03em;line-height:1.15;color:var(--milk);
+  font-size:clamp(22px,3vw,40px);font-weight:500;
+  letter-spacing:-.02em;line-height:1.2;color:var(--milk);
 }
 
 /* ============================================================
@@ -391,7 +408,7 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer;}
 .price-stage{width:100%;max-width:var(--container);margin:0 auto;text-align:center;position:relative;}
 .price-huge{
   font-size:clamp(120px,30vw,420px);
-  font-weight:900;letter-spacing:-.07em;line-height:.8;
+  font-weight:500;letter-spacing:-.04em;line-height:.82;
   color:var(--espresso);
   position:relative;z-index:2;
   display:inline-block;
@@ -433,30 +450,40 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer;}
 .menu-tab{
   font-size:12px;font-weight:800;letter-spacing:.14em;
   text-transform:uppercase;padding:11px 20px;
-  border-radius:100px;border:1px solid rgba(20,12,8,.16);
+  border-radius:100px;border:var(--hair);
   color:var(--ink-mid);
   transition:background .3s var(--ease),color .3s,border-color .3s,transform .3s var(--snap);
 }
 .menu-tab:hover{transform:translateY(-2px);border-color:var(--ink);}
-.menu-tab.on{background:var(--espresso);color:var(--milk);border-color:var(--espresso);}
+.menu-tab.on{background:var(--ink);color:var(--paper);border-color:var(--ink);}
 .menu-list{border-top:1px solid rgba(20,12,8,.14);}
 .menu-row{
   display:grid;
-  grid-template-columns:auto 1fr auto;
-  gap:20px;align-items:baseline;
-  padding:clamp(18px,2.6vh,30px) 0;
-  border-bottom:1px solid rgba(20,12,8,.14);
-  position:relative;cursor:pointer;
+  grid-template-columns:auto auto 1fr auto;   /* num · thumb · name · price */
+  gap:clamp(14px,2vw,26px);align-items:center;
+  padding:clamp(16px,2.4vh,26px) 0;
+  border-bottom:var(--hair);
+  position:relative;
   transition:padding-left .45s var(--snap);
 }
-.menu-row:hover{padding-left:16px;}
+.menu-row:hover{padding-left:12px;}
+/* embedded inline thumbnail — replaces the floating e-commerce popup */
+.menu-thumb{
+  width:clamp(46px,5vw,64px);aspect-ratio:1;border-radius:14px;
+  display:grid;place-items:center;font-size:clamp(22px,2.6vw,30px);
+  background:rgba(88,191,192,.12);
+  border:var(--hair);
+  transition:transform .4s var(--snap),background .3s var(--ease);
+  flex-shrink:0;
+}
+.menu-row:hover .menu-thumb{transform:scale(1.06) rotate(-3deg);background:rgba(88,191,192,.2);}
 .menu-row .num{
-  font-size:11px;font-weight:800;letter-spacing:.12em;
-  color:var(--volt);min-width:32px;
+  font-size:11px;font-weight:700;letter-spacing:.12em;
+  color:var(--ink-mid);min-width:26px;
 }
 .menu-row .nm{
-  font-size:clamp(21px,3.4vw,44px);font-weight:900;
-  letter-spacing:-.035em;line-height:1.05;color:var(--ink);
+  font-size:clamp(20px,3vw,38px);font-weight:500;
+  letter-spacing:-.02em;line-height:1.1;color:var(--ink);
   transition:color .3s var(--ease);
 }
 .menu-row:hover .nm{color:var(--volt);}
@@ -466,33 +493,13 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer;}
   text-transform:none;
 }
 .menu-row .pr{
-  font-size:clamp(15px,1.9vw,26px);font-weight:900;
-  letter-spacing:-.02em;color:var(--ink);white-space:nowrap;
+  font-size:clamp(15px,1.8vw,24px);font-weight:600;
+  letter-spacing:-.01em;color:var(--ink);white-space:nowrap;
 }
 .menu-vary{
   margin-top:22px;font-size:12px;color:var(--ink-dim);
   letter-spacing:.06em;
 }
-/* floating product tile that follows cursor */
-.menu-float{
-  position:fixed;top:0;left:0;z-index:60;
-  width:230px;height:290px;border-radius:6px;
-  overflow:hidden;pointer-events:none;
-  opacity:0;transform:translate(-50%,-50%) scale(.9);
-  transition:opacity .35s var(--ease),transform .45s var(--snap);
-  will-change:transform;
-}
-.menu-float.on{opacity:1;}
-.menu-float .ph{
-  width:100%;height:100%;
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;gap:12px;
-  background:var(--espresso);color:var(--crema);
-  font-size:11px;font-weight:800;letter-spacing:.2em;
-  text-transform:uppercase;text-align:center;padding:20px;
-}
-.menu-float .ph .glyph{font-size:44px;line-height:1;}
-@media (hover:none),(pointer:coarse){.menu-float{display:none;}}
 
 /* ============================================================
    05 — LOCATIONS
@@ -514,12 +521,6 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer;}
   font:inherit;font-size:14px;color:var(--ink);width:100%;
 }
 .loc-search input::placeholder{color:var(--ink-dim);}
-.loc-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
-  gap:1px;background:rgba(20,12,8,.14);
-  border:1px solid rgba(20,12,8,.14);
-}
 .loc-card{
   background:var(--paper);
   padding:clamp(22px,3vw,32px);
@@ -529,8 +530,8 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer;}
 }
 .loc-card:hover{background:var(--milk);}
 .loc-card h3{
-  font-size:clamp(20px,2.4vw,30px);font-weight:900;
-  letter-spacing:-.03em;color:var(--ink);line-height:1.05;
+  font-size:clamp(20px,2.4vw,30px);font-weight:500;
+  letter-spacing:-.02em;color:var(--ink);line-height:1.1;
 }
 .loc-card .addr{font-size:14px;line-height:1.6;color:var(--ink-mid);}
 .loc-hours{display:flex;flex-direction:column;gap:5px;padding-top:12px;border-top:1px solid rgba(20,12,8,.12);}
@@ -887,3 +888,136 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer;}
 /* banner product frame */
 .banner-frame{--r:14px;box-shadow:0 40px 90px rgba(0,0,0,.55);}
 .banner-bg img{width:100%;height:100%;object-fit:cover;}
+
+/* ============================================================
+   05 — LOCATIONS · GEOLOCATION REFACTOR
+   Nearest-first engine + full-list drawer for 75+ stores.
+   ============================================================ */
+.loc-intro{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;margin-bottom:26px;}
+.loc-cta-row{display:flex;flex-wrap:wrap;gap:10px;}
+.loc-locate{
+  display:inline-flex;align-items:center;gap:9px;
+  padding:14px 24px;border-radius:100px;
+  background:var(--volt);color:#08302F;
+  font-size:12px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;
+  transition:background .3s var(--ease),transform .35s var(--snap);
+}
+.loc-locate:hover{background:var(--volt-soft);transform:translateY(-1px);}
+.loc-locate.busy{opacity:.6;pointer-events:none;}
+.loc-browse{
+  display:inline-flex;align-items:center;gap:9px;
+  padding:14px 24px;border-radius:100px;border:var(--hair);
+  font-size:12px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--ink);
+  transition:border-color .3s,color .3s;
+}
+.loc-browse:hover{border-color:var(--volt);color:var(--volt);}
+.loc-status{font-size:13px;color:var(--ink-mid);margin-bottom:20px;min-height:1em;}
+
+/* nearest-3 result grid */
+.loc-near{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:1px;background:rgba(32,27,24,.1);border:var(--hair);
+}
+.loc-card{
+  background:var(--paper);
+  padding:clamp(22px,3vw,30px);
+  display:flex;flex-direction:column;gap:12px;
+  transition:background .4s var(--ease);
+  position:relative;
+}
+.loc-card:hover{background:var(--milk);}
+.loc-card .dist{
+  position:absolute;top:clamp(22px,3vw,30px);right:clamp(22px,3vw,30px);
+  font-size:12px;font-weight:800;letter-spacing:.04em;color:var(--volt);
+  font-variant-numeric:tabular-nums;
+}
+
+/* full drawer — all 75+ stores, filterable by province/city */
+.loc-drawer{
+  position:fixed;inset:0;z-index:80;
+  display:none;
+}
+.loc-drawer.open{display:block;}
+.loc-drawer-scrim{position:absolute;inset:0;background:rgba(20,14,10,.55);backdrop-filter:blur(3px);}
+.loc-drawer-panel{
+  position:absolute;top:0;right:0;height:100%;
+  width:min(560px,100%);background:var(--paper);
+  display:flex;flex-direction:column;
+  transform:translateX(100%);transition:transform .5s var(--snap);
+  box-shadow:-30px 0 80px rgba(0,0,0,.25);
+}
+.loc-drawer.open .loc-drawer-panel{transform:translateX(0);}
+.loc-drawer-head{padding:26px clamp(22px,4vw,34px) 18px;border-bottom:var(--hair);}
+.loc-drawer-head .row{display:flex;align-items:center;justify-content:space-between;gap:16px;}
+.loc-drawer-close{font-size:24px;line-height:1;color:var(--ink-mid);padding:6px;}
+.loc-drawer-close:hover{color:var(--ink);}
+.loc-drawer .loc-search{margin-top:16px;width:100%;background:var(--milk);}
+.loc-chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px;}
+.loc-chip{
+  font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  padding:8px 14px;border-radius:100px;border:var(--hair);color:var(--ink-mid);
+  transition:all .25s var(--ease);
+}
+.loc-chip.on{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+.loc-drawer-list{flex:1;overflow-y:auto;padding:8px clamp(22px,4vw,34px) 34px;}
+.loc-line{
+  display:flex;justify-content:space-between;gap:16px;align-items:flex-start;
+  padding:18px 0;border-bottom:var(--hair);
+}
+.loc-line h4{font-size:17px;font-weight:600;color:var(--ink);letter-spacing:-.01em;}
+.loc-line .meta{font-size:13px;color:var(--ink-mid);margin-top:4px;line-height:1.5;}
+.loc-line .go{
+  font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--volt);white-space:nowrap;padding-top:3px;
+}
+
+/* ============================================================
+   06 — FRANCHISE / FOUNDER SCALE STORY (elevated)
+   ============================================================ */
+.founder{padding:clamp(90px,13vh,170px) var(--gut);}
+.founder-grid{
+  max-width:var(--container);margin:0 auto;
+  display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(40px,6vw,90px);align-items:center;
+}
+.founder-stats{display:flex;flex-wrap:wrap;gap:clamp(24px,4vw,52px);margin:34px 0;}
+.founder-stat .n{
+  font-family:var(--font-script);font-weight:400;
+  font-size:clamp(46px,7vw,88px);line-height:1;color:var(--volt);padding-bottom:6px;
+}
+.founder-stat .l{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--pale);}
+.founder-journey{
+  display:flex;flex-direction:column;gap:0;
+  border-left:2px solid rgba(88,191,192,.3);padding-left:26px;margin:8px 0 32px;
+}
+.founder-step{padding:14px 0;position:relative;}
+.founder-step::before{
+  content:'';position:absolute;left:-33px;top:20px;width:10px;height:10px;border-radius:50%;
+  background:var(--volt);
+}
+.founder-step .yr{font-size:12px;font-weight:800;letter-spacing:.12em;color:var(--volt);text-transform:uppercase;}
+.founder-step p{font-size:15px;color:var(--pale);margin-top:4px;line-height:1.55;}
+.founder-offer{
+  border:var(--hair);border-color:rgba(249,246,240,.14);
+  border-radius:18px;padding:clamp(26px,3vw,38px);
+  background:rgba(249,246,240,.03);
+}
+.founder-offer h4{font-size:13px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--volt);margin-bottom:18px;}
+.founder-offer ul{list-style:none;display:flex;flex-direction:column;gap:0;}
+.founder-offer li{
+  display:flex;gap:12px;align-items:flex-start;
+  padding:13px 0;border-top:1px solid rgba(249,246,240,.1);
+  font-size:15px;color:var(--paper);line-height:1.5;
+}
+.founder-offer li:first-child{border-top:none;}
+.founder-offer li span{color:var(--volt);flex-shrink:0;}
+.founder-fine{font-size:12px;color:var(--pale-dim);margin:18px 0 24px;}
+@media(max-width:860px){.founder-grid{grid-template-columns:1fr;gap:40px;}}
+
+/* standalone Vouchers strip (demoted from the franchise pairing) */
+.voucher-strip{
+  max-width:var(--container);margin:44px auto 0;
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px;
+  padding:24px clamp(22px,3vw,34px);border:var(--hair);border-color:rgba(249,246,240,.14);border-radius:16px;
+}
+.voucher-strip p{font-size:15px;color:var(--pale);max-width:52ch;}
+.voucher-strip b{color:var(--paper);font-weight:600;}
