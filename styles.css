@@ -28,6 +28,7 @@
   --pale:rgba(249,246,240,.66);
   --pale-dim:rgba(249,246,240,.36);
   --hair:1px solid rgba(32,27,24,.08);   /* subtle section divider */
+  --chalk:url("assets/chalkboard.jpg");   /* self-hosted chalkboard texture */
 
   --font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;
   --font-script:'Caveat',cursive;
@@ -290,9 +291,17 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer;}
    on top; if GSAP fails to load, every section still renders with
    correct contrast instead of dark-on-dark.
    ------------------------------------------------------------ */
-[data-env]{background:var(--espresso);color:var(--paper);}
-[data-env="espresso"]{background:var(--espresso);color:var(--paper);}
-[data-env="bean"]{background:var(--bean);color:var(--paper);}
+[data-env]{background-color:var(--espresso);color:var(--paper);}
+[data-env="espresso"]{
+  background-color:var(--espresso);color:var(--paper);
+  background-image:linear-gradient(rgba(24,18,16,.80),rgba(24,18,16,.88)),var(--chalk);
+  background-size:cover;background-position:center;background-attachment:fixed;
+}
+[data-env="bean"]{
+  background-color:var(--bean);color:var(--paper);
+  background-image:linear-gradient(rgba(32,23,19,.74),rgba(32,23,19,.84)),var(--chalk);
+  background-size:cover;background-position:center;background-attachment:fixed;
+}
 [data-env="crema"]{background:var(--crema);color:var(--ink);}
 [data-env="paper"]{background:var(--paper);color:var(--ink);}
 [data-env="milk"]{background:var(--milk);color:var(--ink);}
@@ -567,8 +576,8 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer;}
 .ev-card:hover{background:var(--coffee);}
 .ev-card .glyph{font-size:34px;line-height:1;}
 .ev-card h3{
-  font-size:clamp(18px,2.2vw,28px);font-weight:900;
-  letter-spacing:-.03em;color:var(--milk);text-transform:uppercase;
+  font-size:clamp(18px,2.2vw,28px);font-weight:600;
+  letter-spacing:.01em;color:var(--milk);text-transform:uppercase;
 }
 .ev-card p{font-size:13.5px;color:var(--pale);line-height:1.55;}
 .ev-note{
@@ -985,20 +994,24 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer;}
 .founder-step .yr{font-size:12px;font-weight:800;letter-spacing:.12em;color:var(--volt);text-transform:uppercase;}
 .founder-step p{font-size:15px;color:var(--pale);margin-top:4px;line-height:1.55;}
 .founder-offer{
-  border:var(--hair);border-color:rgba(249,246,240,.14);
-  border-radius:18px;padding:clamp(26px,3vw,38px);
-  background:rgba(249,246,240,.03);
+  background:var(--paper);
+  border:var(--hair);border-radius:0;   /* squared, like the location cards */
+  padding:clamp(26px,3vw,38px);
+  color:var(--ink);
+  box-shadow:0 24px 60px rgba(0,0,0,.28);   /* lifts the card off the chalkboard */
 }
 .founder-offer h4{font-size:13px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--volt);margin-bottom:18px;}
 .founder-offer ul{list-style:none;display:flex;flex-direction:column;gap:0;}
 .founder-offer li{
   display:flex;gap:12px;align-items:flex-start;
-  padding:13px 0;border-top:1px solid rgba(249,246,240,.1);
-  font-size:15px;color:var(--paper);line-height:1.5;
+  padding:14px 0;border-top:1px solid rgba(32,27,24,.12);
+  font-size:15px;color:var(--ink);line-height:1.5;
 }
 .founder-offer li:first-child{border-top:none;}
 .founder-offer li span{color:var(--volt);flex-shrink:0;}
-.founder-fine{font-size:12px;color:var(--pale-dim);margin:18px 0 24px;}
+.founder-fine{font-size:12px;color:var(--ink-mid);margin:18px 0 24px;}
+.founder-offer .founder-cta{background:var(--ink);color:var(--paper);}
+.founder-offer .founder-cta:hover{background:var(--volt);color:#08302F;transform:translateY(-1px);}
 @media(max-width:860px){.founder-grid{grid-template-columns:1fr;gap:40px;}}
 
 /* standalone Vouchers strip (demoted from the franchise pairing) */
@@ -1050,3 +1063,18 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer;}
   .price-draw .dw{opacity:.92 !important;animation:none !important;}
   .price-why{opacity:1 !important;}
 }
+
+/* chalkboard: avoid fixed-attachment jank on touch devices */
+@media (hover:none),(pointer:coarse){
+  [data-env="espresso"],[data-env="bean"]{background-attachment:scroll;}
+}
+
+/* ---- Hero brand badge (real logo) in the open space ---- */
+.hero-badge{
+  position:absolute;top:50%;right:clamp(3%,6vw,8%);
+  transform:translateY(-46%) rotate(-3deg);
+  width:clamp(240px,30vw,460px);height:auto;z-index:2;
+  opacity:.96;pointer-events:none;
+  filter:drop-shadow(0 12px 30px rgba(0,0,0,.35));
+}
+@media (max-width:960px){ .hero-badge{display:none;} }
