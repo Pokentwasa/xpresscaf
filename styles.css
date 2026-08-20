@@ -1160,3 +1160,31 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer;}
   .fs-grid{grid-template-columns:1fr;gap:clamp(30px,5vh,50px);}
   .fs-left{position:static;}
 }
+
+/* ============================================================
+   STORY BANNER — "Treating yourself never gets old"
+   Two-column: title left, body copy right
+   ============================================================ */
+.story-banner .banner-inner{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:clamp(40px,6vw,90px);
+  align-items:center;
+}
+.story-banner .banner-copy{max-width:none;}
+.banner-story{display:flex;flex-direction:column;gap:clamp(12px,2vh,18px);}
+.banner-story p{
+  font-size:clamp(15px,1.4vw,17px);
+  color:var(--pale);line-height:1.72;max-width:54ch;
+}
+.banner-story p strong{color:var(--paper);font-weight:700;}
+.bs-lead{
+  font-size:clamp(17px,1.7vw,20px)!important;
+  color:var(--paper)!important;font-weight:500;
+}
+.bs-closer{color:var(--pale-dim)!important;font-style:italic;}
+.bs-closer em{font-style:normal;color:var(--volt);}
+@media(max-width:860px){
+  .story-banner .banner-inner{grid-template-columns:1fr;gap:clamp(28px,5vh,44px);}
+  .banner-story p{max-width:none;}
+}
