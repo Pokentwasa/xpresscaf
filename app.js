@@ -15,6 +15,33 @@ import * as THREE from 'three';
   const PRICE   = (typeof XPRESSO_PRICE !== 'undefined') ? XPRESSO_PRICE : 'R10';
   const ENVS    = (typeof ENVIRONMENTS !== 'undefined') ? ENVIRONMENTS : null;
 
+  /* ------------------------------------------------------------
+     DRAWN ICONS — hand-built line art, no emoji. Stroke inherits
+     currentColor so they read in espresso on light chips and warm
+     cream on the dark price stage. Reused by the menu + R14 page.
+     ------------------------------------------------------------ */
+  const SVG = p => `<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>`;
+  const DRAW = {
+    coffee: SVG('<path d="M11 21h20v8a9 9 0 0 1-9 9h-2a9 9 0 0 1-9-9V21Z"/><path d="M31 23h4a5 5 0 0 1 0 10h-4"/><path d="M9 42h26"/><path d="M17 9c-1.6 2 1.6 3 0 5M24 9c-1.6 2 1.6 3 0 5"/>'),
+    tea:    SVG('<path d="M12 22h18v7a9 9 0 0 1-9 9 9 9 0 0 1-9-9V22Z"/><path d="M30 24h4a4.5 4.5 0 0 1 0 9h-4"/><path d="M10 42h22"/><path d="M21 22l1-5 4-2"/><path d="M22 12c3 1 4 3 4 5"/>'),
+    croissant: SVG('<path d="M9 33C6 22 15 12 27 12c6 0 10 4 10 8 0 3-2 5-5 5-6 0-9 3-9 8 0 3-2 5-5 5-4 0-7-2-9-5Z"/><path d="M17 21l2 4M23 17l2 4M30 17l1 4"/>'),
+    sandwich: SVG('<path d="M8 19 24 11l16 8-16 6Z"/><path d="M8 25l16 8 16-8"/><path d="M8 19v6M40 19v6"/><path d="M14 21l3 1M22 20l3 1"/>'),
+    doughnut: SVG('<circle cx="24" cy="24" r="13.5"/><circle cx="24" cy="24" r="5"/><path d="M15 17l1.4 2M21 13l.8 2.2M30 13l-.8 2.2M35 19l-2 1M33 30l-2-1M17 32l1-2"/>'),
+    cold:   SVG('<path d="M15 19h18l-2 21a2.5 2.5 0 0 1-2.5 2.3H19.5A2.5 2.5 0 0 1 17 40L15 19Z"/><path d="M13 19h22"/><path d="M27 7l-2.5 12M27 7h4"/>'),
+    mug:    SVG('<rect x="11" y="19" width="19" height="19" rx="3"/><path d="M30 23h4a5 5 0 0 1 0 10h-4"/><path d="M17 9c-1.6 2 1.6 3 0 5M24 9c-1.6 2 1.6 3 0 5"/>'),
+    beans:  SVG('<g transform="rotate(-22 18 25)"><ellipse cx="18" cy="25" rx="7.5" ry="11"/><path d="M18 14.5c-3 6-3 15 0 21"/></g><g transform="rotate(20 32 26)"><ellipse cx="32" cy="26" rx="6.5" ry="9.5"/><path d="M32 17c-2.6 5-2.6 13 0 18"/></g>')
+  };
+  /* map a menu item to its drawing (by name, then category) */
+  function menuIcon(m){
+    const byName = {
+      'Freshly Brewed Coffee':'coffee','Individual Teas':'tea','Pastries & More':'croissant',
+      'Sandwiches':'sandwich','Sweet Treats & More':'doughnut','Doughnuts':'doughnut',
+      'Cold Drinks & Juices':'cold','Hot Chocolate':'mug'
+    };
+    const byCat = { coffee:'coffee', baked:'croissant', savoury:'sandwich', sweet:'doughnut', cold:'cold' };
+    return DRAW[byName[m.name]] || DRAW[byCat[m.cat]] || DRAW.coffee;
+  }
+
   const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const TOUCH   = window.matchMedia('(hover: none), (pointer: coarse)').matches;
   const MOBILE  = window.innerWidth < 768;
@@ -377,7 +404,7 @@ import * as THREE from 'three';
       list.innerHTML = items.map((m, i) => `
         <article class="menu-row">
           <span class="num">${String(i + 1).padStart(2, '0')}</span>
-          <span class="menu-thumb" aria-hidden="true">${m.glyph}</span>
+          <span class="menu-thumb" aria-hidden="true">${menuIcon(m)}</span>
           <h3 class="nm">${m.name}<span class="ds">${m.desc}</span></h3>
           <span class="pr">${PRICE}</span>
         </article>`).join('');
@@ -401,6 +428,17 @@ import * as THREE from 'three';
       });
     });
 
+  })();
+
+  /* ==========================================================
+     R14 PAGE DRAWINGS — populate the illustration layer
+     ========================================================== */
+  (function buildPriceDrawings() {
+    const wrap = document.getElementById('priceDraw');
+    if (!wrap) return;
+    const order = ['coffee','croissant','beans','doughnut','cold','mug','tea','beans'];
+    wrap.innerHTML = order.map((k, i) =>
+      `<span class="dw d${i + 1}">${DRAW[k]}</span>`).join('');
   })();
 
   /* ==========================================================
@@ -684,10 +722,13 @@ import * as THREE from 'three';
                       { scale: 1, rotate: 0, opacity: 1, ease: 'power3.out' })
         .fromTo('#priceWord', { yPercent: 120, opacity: 0 },
                               { yPercent: 0, opacity: 1, ease: 'power3.out' }, '-=.35')
-        .fromTo('#priceOrbit span',
-                { y: 34, opacity: 0, scale: .8 },
-                { y: 0, opacity: 1, scale: 1, stagger: .07, ease: 'back.out(1.7)' }, '-=.2')
-        .to(huge, { scale: 1.16, ease: 'none' }, '+=.15');
+        .fromTo('#priceDraw .dw',
+                { scale: .6, opacity: 0, rotate: 0 },
+                { scale: 1, opacity: .92, duration: .5, stagger: .06, ease: 'back.out(1.6)' }, '-=.3')
+        .fromTo('#priceWhy',
+                { y: 24, opacity: 0 },
+                { y: 0, opacity: 1, ease: 'power3.out' }, '-=.15')
+        .to(huge, { scale: 1.12, ease: 'none' }, '+=.15');
       }
 
       /* ---- voices horizontal drift ---- */
