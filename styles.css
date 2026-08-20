@@ -294,12 +294,12 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer;}
 [data-env]{background-color:var(--espresso);color:var(--paper);}
 [data-env="espresso"]{
   background-color:var(--espresso);color:var(--paper);
-  background-image:linear-gradient(rgba(24,18,16,.80),rgba(24,18,16,.88)),var(--chalk);
+  background-image:linear-gradient(rgba(24,18,16,.72),rgba(24,18,16,.82)),var(--chalk);
   background-size:cover;background-position:center;background-attachment:fixed;
 }
 [data-env="bean"]{
   background-color:var(--bean);color:var(--paper);
-  background-image:linear-gradient(rgba(32,23,19,.74),rgba(32,23,19,.84)),var(--chalk);
+  background-image:linear-gradient(rgba(32,23,19,.68),rgba(32,23,19,.80)),var(--chalk);
   background-size:cover;background-position:center;background-attachment:fixed;
 }
 [data-env="crema"]{background:var(--crema);color:var(--ink);}
@@ -391,7 +391,7 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer;}
 /* ============================================================
    02 — MANIFESTO
    ============================================================ */
-.manifesto{text-align:left;background:var(--bean);color:var(--milk);}
+.manifesto{text-align:left;color:var(--milk);}   /* bg + chalkboard come from [data-env="bean"] */
 .manifesto .d-lg{color:var(--milk);}
 .manifesto .hl{color:var(--volt);}
 .manifesto-reveal{
@@ -638,7 +638,9 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer;}
    FOOTER
    ============================================================ */
 .footer{
-  background:var(--espresso);color:var(--milk);
+  background-color:var(--espresso);color:var(--milk);
+  background-image:linear-gradient(rgba(24,18,16,.72),rgba(24,18,16,.82)),var(--chalk);
+  background-size:cover;background-position:center;background-attachment:fixed;
   padding:clamp(70px,11vh,130px) var(--gut) 32px;
   position:relative;overflow:hidden;
 }
