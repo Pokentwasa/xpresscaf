@@ -590,8 +590,6 @@ import * as THREE from 'three';
 
     set('bannerBg', 'counter');
     set('bannerProductImg', 'threeCups');
-    set('duoImg', 'barista');
-
     /* customer photo wall */
     const wall = document.getElementById('photoWall');
     if (wall && typeof WALL !== 'undefined') {
