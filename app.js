@@ -399,35 +399,24 @@ import * as THREE from 'three';
     const list = document.getElementById('menuList');
     if (!list) return;
 
-    function paint(cat) {
-      const items = cat === 'all' ? MENU_D : MENU_D.filter(m => m.cat === cat);
-      list.innerHTML = items.map((m, i) => `
-        <article class="menu-row">
-          <span class="num">${String(i + 1).padStart(2, '0')}</span>
-          <span class="menu-thumb" aria-hidden="true">${menuIcon(m)}</span>
-          <h3 class="nm">${m.name}<span class="ds">${m.desc}</span></h3>
-          <span class="pr">${PRICE}</span>
-        </article>`).join('');
+    const priceRow = it => {
+      const name = typeof it === 'string' ? it : it.name;
+      const note = (typeof it === 'object' && it.note) ? ` <em>${it.note}</em>` : '';
+      return `<div class="menu-item"><span class="mi-name">${name}${note}</span><span class="mi-pr">${PRICE}</span></div>`;
+    };
 
-      if (window.gsap && !REDUCED) {
-        gsap.fromTo(list.querySelectorAll('.menu-row'),
-          { y: 26, opacity: 0 },
-          { y: 0, opacity: 1, duration: .55, ease: 'power3.out', stagger: .045, overwrite: true });
-      }
-    }
-
-    paint('all');
-
-    document.querySelectorAll('.menu-tab').forEach(tab => {
-      tab.addEventListener('click', () => {
-        document.querySelectorAll('.menu-tab').forEach(t => {
-          t.classList.remove('on'); t.setAttribute('aria-selected', 'false');
-        });
-        tab.classList.add('on'); tab.setAttribute('aria-selected', 'true');
-        paint(tab.dataset.cat);
-      });
-    });
-
+    list.innerHTML = MENU_D.map((c, i) => `
+      <details class="menu-cat"${i === 0 ? ' open' : ''}>
+        <summary class="menu-cat-head" data-cursor="view">
+          <span class="menu-thumb" aria-hidden="true">${DRAW[c.icon] || DRAW.coffee}</span>
+          <span class="menu-cat-title">${c.title}</span>
+          <span class="menu-cat-count">${c.items.length} items</span>
+          <span class="menu-chev" aria-hidden="true"></span>
+        </summary>
+        <div class="menu-cat-body">
+          ${c.items.map(priceRow).join('')}
+        </div>
+      </details>`).join('');
   })();
 
   /* ==========================================================
