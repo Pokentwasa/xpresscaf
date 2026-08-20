@@ -588,6 +588,9 @@ import * as THREE from 'three';
       el.alt = im.alt;
     };
 
+    set('bannerBg', 'counter');
+    set('bannerProductImg', 'threeCups');
+
     /* customer photo wall */
     const wall = document.getElementById('photoWall');
     if (wall && typeof WALL !== 'undefined') {
