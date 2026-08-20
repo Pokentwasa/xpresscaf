@@ -745,10 +745,7 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer;}
 /* readability scrim — photography behind type always needs one */
 .banner-bg::after{
   content:'';position:absolute;inset:0;
-  background:linear-gradient(90deg,
-    rgba(20,12,8,.88) 0%,
-    rgba(20,12,8,.62) 42%,
-    rgba(20,12,8,.15) 100%);
+  background:rgba(20,12,8,.55);
 }
 .banner-inner{
   position:relative;z-index:2;
@@ -1170,7 +1167,9 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer;}
   grid-template-columns:1fr 1fr;
   gap:clamp(40px,6vw,90px);
   align-items:center;
+  direction:rtl;   /* flip columns: copy left, title right */
 }
+.story-banner .banner-inner > *{direction:ltr;}  /* restore text direction inside */
 .story-banner .banner-copy{max-width:none;}
 .banner-story{display:flex;flex-direction:column;gap:clamp(12px,2vh,18px);}
 .banner-story p{
