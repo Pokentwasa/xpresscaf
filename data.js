@@ -13,21 +13,39 @@
 const XPRESSO_PRICE = 'R14';
 
 /* ------------------------------------------------------------
-   MENU
-   The live site lists CATEGORIES, not individual products with
-   names. Individual items are set per store ("Items may vary
-   depending on location"), so we present the real categories
-   rather than inventing product names.
+   MENU — the full Xpresso range, from the official R14 menu.
+   Grouped into categories that render as expandable dropdowns.
+   Every item is one price (XPRESSO_PRICE). `icon` maps to the
+   drawn icon set in app.js. Items are strings, or {name,note}
+   when a tag (e.g. "Vegan") applies.
    ------------------------------------------------------------ */
 const MENU = [
-  { cat:'coffee',  name:'Freshly Brewed Coffee', desc:'Flavourful coffee, ground and brewed in store, all day.', glyph:'☕' },
-  { cat:'coffee',  name:'Individual Teas',       desc:'Freshly packaged individual tea bags.', glyph:'🍵' },
-  { cat:'baked',   name:'Pastries & More',       desc:'Because coffee needs a friend.', glyph:'🥐' },
-  { cat:'savoury', name:'Sandwiches',            desc:'Freshly made daily.', glyph:'🥪' },
-  { cat:'sweet',   name:'Sweet Treats & More',   desc:'Because you deserve it.', glyph:'🍩' },
-  { cat:'sweet',   name:'Doughnuts',             desc:'The ones people write to us about.', glyph:'🍩' },
-  { cat:'cold',    name:'Cold Drinks & Juices',  desc:'Chilled, and the same price as everything else.', glyph:'🥤' },
-  { cat:'coffee',  name:'Hot Chocolate',         desc:'For the non-coffee crowd.', glyph:'🍫' }
+  { key:'coffee', title:'Coffees', icon:'coffee', items:[
+    'Americano','Espresso','Double Espresso','Cappuccino','Café Latte','Café Mocha',
+    'Macchiato','Flat White','Hazelnut Cappuccino','Hazelnut Delight','Toffee Caramel Latte',
+    'Toffee Caramel Dream','Hot Chocolate','White Hot Chocolate','Top Deck Hot Chocolate',
+    'Salted Caramel Hottie'
+  ]},
+  { key:'tea', title:'Teas', icon:'tea', items:[
+    'Chai Latte','Dirty Chai Latte','Rooibos Tea','Five Roses English Tea'
+  ]},
+  { key:'pastries', title:'Pastries & More', icon:'croissant', items:[
+    'Custard Danish','Apple Danish','Cinnamon Choc Twist','Custard Croissant','Plain Croissant',
+    'Custard Copenhagen','Quiches Vegs / Chicken','Pies','Thai Twist','Vetkoek'
+  ]},
+  { key:'sweet', title:'Sweet Treats & More', icon:'doughnut', items:[
+    'Caramel Doughnut','Chocolate Doughnut','Decadent Brownie','Choc Mousse Cronut','Muffins','Hertzoggie'
+  ]},
+  { key:'sandwiches', title:'Sandwiches', icon:'sandwich', items:[
+    'Chicken Salad', { name:'Garlic Knot', note:'Vegan' }
+  ]},
+  { key:'cold', title:'Cold Drinks & Juices', icon:'cold', items:[
+    'Fresh Juice Daily','Canned Drinks','Water: Still / Sparkling','Sparkling Refresher',
+    'Popping Boba','Ice Coffee (Ice)','Mango Slushy','Strawberry Slushy'
+  ]},
+  { key:'other', title:'Other', icon:'beans', items:[
+    'Droëwors','Oats Cup'
+  ]}
 ];
 
 /* ------------------------------------------------------------
