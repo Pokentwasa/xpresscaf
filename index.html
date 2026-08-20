@@ -129,30 +129,33 @@
     <div class="marquee-track" id="marqueeTrack"></div>
   </div>
 
-  <!-- 01c PHOTO BANNER — the hero product moment -->
-  <section class="banner" data-env="espresso">
-    <div class="banner-bg">
-      <img id="bannerBg" alt="" loading="lazy" decoding="async">
+  <!-- 03 PRICE MOMENT -->
+  <section class="price" id="price" data-env="crema">
+    <div class="price-stage">
+      <!-- drawings fill the space, populated from the shared icon set in app.js -->
+      <div class="price-draw" id="priceDraw" aria-hidden="true"></div>
+      <div class="price-huge" id="priceHuge" data-price>R14</div>
+      <div class="price-word" id="priceWord">Everything.</div>
+      <p class="price-note">Every item on the menu. One price. Items may vary depending on location.</p>
+      <a href="#franchise" class="price-why" id="priceWhy" data-cursor="explore">Why is everything R14? <span class="ar" aria-hidden="true">&rarr;</span></a>
     </div>
-    <div class="scatter" id="scatterA"></div>
-    <div class="banner-inner">
-      <div class="banner-copy">
-        <p class="eyebrow">The daily one</p>
-        <h2 class="display d-lg" style="margin-top:14px">
-          <span class="mask"><span>Your morning,</span></span>
-          <span class="mask"><span>sorted.</span></span>
-        </h2>
-        <p class="lede">Ground and brewed in store, all day, every day. The same cup whether you're on your way to campus, the office, or nowhere in particular.</p>
-        <div class="banner-cta">
-          <a href="#menu" class="btn btn-solid" data-cursor="view">See the menu <span class="ar" aria-hidden="true">&rarr;</span></a>
-          <a href="#locations" class="btn btn-ghost" data-cursor="explore">Find a store</a>
+  </section>
+
+  <!-- 04 MENU -->
+  <section class="sec" id="menu" data-env="paper">
+    <div class="wrap">
+      <div class="menu-head">
+        <div>
+          <p class="eyebrow" data-reveal>The menu</p>
+          <h2 class="display d-md" style="margin-top:14px">
+            <span class="mask"><span>One price.</span></span>
+            <span class="mask"><span>Whole menu.</span></span>
+          </h2>
         </div>
+        <p class="menu-hint">Tap a category · everything R14</p>
       </div>
-      <div class="banner-product" id="bannerProduct">
-        <div class="img-slot banner-frame" style="width:min(100%,430px);aspect-ratio:4/5">
-          <img id="bannerProductImg" alt="" loading="lazy" decoding="async">
-        </div>
-      </div>
+      <div class="menu-list" id="menuList"></div>
+      <p class="menu-vary">Items may vary depending on location. Categories reflect the current Xpresso range — individual product lists are set per store.</p>
     </div>
   </section>
 
@@ -181,36 +184,6 @@
           </div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- 03 PRICE MOMENT -->
-  <section class="price" id="price" data-env="crema">
-    <div class="price-stage">
-      <!-- drawings fill the space, populated from the shared icon set in app.js -->
-      <div class="price-draw" id="priceDraw" aria-hidden="true"></div>
-      <div class="price-huge" id="priceHuge" data-price>R14</div>
-      <div class="price-word" id="priceWord">Everything.</div>
-      <p class="price-note">Every item on the menu. One price. Items may vary depending on location.</p>
-      <a href="#franchise" class="price-why" id="priceWhy" data-cursor="explore">Why is everything R14? <span class="ar" aria-hidden="true">&rarr;</span></a>
-    </div>
-  </section>
-
-  <!-- 04 MENU -->
-  <section class="sec" id="menu" data-env="paper">
-    <div class="wrap">
-      <div class="menu-head">
-        <div>
-          <p class="eyebrow" data-reveal>The menu</p>
-          <h2 class="display d-md" style="margin-top:14px">
-            <span class="mask"><span>One price.</span></span>
-            <span class="mask"><span>Whole menu.</span></span>
-          </h2>
-        </div>
-        <p class="menu-hint">Tap a category · everything R14</p>
-      </div>
-      <div class="menu-list" id="menuList"></div>
-      <p class="menu-vary">Items may vary depending on location. Categories reflect the current Xpresso range — individual product lists are set per store.</p>
     </div>
   </section>
 
